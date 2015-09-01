@@ -1,6 +1,6 @@
 # BaiduImageCrawler
 
-This is a multithreaded tool for downloading search results of [Baidu image search](http://http://images.baidu.com/) in a multithreaded way.
+This is a multithreaded tool for downloading search results of [Baidu image search](http://http://images.baidu.com/).
 
 ### Dependencies
   - Python 3.x
