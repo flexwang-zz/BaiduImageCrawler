@@ -17,4 +17,4 @@ Below is an example of how to use the crawler to download the first 40 image sea
 $ python crawler.py 狗 E:\dog 40 8
 ```
 Look what we got:
-
+ <img src="https://github.com/flexwang/BaiduImageCrawler/raw/master/result.jpg" alt="GitHub" title="snapshot" width="700" height="201" />  
