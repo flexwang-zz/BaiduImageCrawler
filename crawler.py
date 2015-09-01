@@ -16,7 +16,7 @@ def download(url, file_name):
     print('Download failed: %s'%(url))
 
 def mass_download(urls, nthread):
-    print('Downloading ...')
+    print('Downloading...')
     pool = workerpool.WorkerPool(size=nthread)
     saveto = [os.path.basename(url) for url in urls]
     pool.map(download, urls, saveto)
