@@ -1,6 +1,6 @@
 # Dillinger
 
-BaiduImageCrawler is a multithreaded tool for downloading search results of [Baidu image search](http://http://images.baidu.com/).
+This is a multithreaded tool for downloading search results of [Baidu image search](http://http://images.baidu.com/) in a multithreaded way.
 
 ### Dependencies
   - Python 3.x
