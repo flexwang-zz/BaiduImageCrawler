@@ -13,9 +13,10 @@ def download(url, file_name):
             return
         except:
             pass
-    print('fetch failed: %s'%(url))
+    print('Download failed: %s'%(url))
 
 def mass_download(urls, nthread):
+    print('Downloading ...')
     pool = workerpool.WorkerPool(size=nthread)
     saveto = [os.path.basename(url) for url in urls]
     pool.map(download, urls, saveto)
@@ -23,15 +24,27 @@ def mass_download(urls, nthread):
     pool.wait()
 
 def get_html(url_path):
-    with urllib.request.urlopen(url_path) as url:
-        s = str(url.read())
-    return s
+    print('Fetching html...')
+    for i in range(5):
+        try:
+            with urllib.request.urlopen(url_path) as url:
+                s = str(url.read())
+            return s
+        except:
+            pass
+    print('Fetching html failed...')
 
 def get_image_urls(html_content):
+    print('Parsing html...')
     exp = 'objURL":"([a-z.:/_A-Z0-9]*)"'
-    return re.findall(exp, html_content)
+    image_urls = re.findall(exp, html_content)
+    print('%d images found in this page'%(len(image_urls)))
+    return image_urls
 
 #reading parameters
+if (len(sys.argv) < 5):
+    print('Usage: python crawler.py $key_word $dest_folder $num_of_images $num_of_threads')
+    exit()
 key_word = repr(sys.argv[1].encode('UTF-8')).replace('\\x', '%').upper()[2:-1]
 dest_folder = sys.argv[2]
 num_image = eval(sys.argv[3])
@@ -42,10 +55,13 @@ if not os.path.exists(dest_folder):
     os.makedirs(dest_folder)
 os.chdir(dest_folder)
 
-for pn in range(0, num_image, 15):
+pn = 0
+cnt = 0
+while cnt < num_image:
     print("Page %d:"%(pn+1))
+    image_urls = []
     try:
-        url = "http://images.baidu.com/search/flip?tn=baiduimage&ie=utf-8&word=%s&pn=%d&gsm=0"%(key_word, pn)
+        url = "http://images.baidu.com/search/flip?tn=baiduimage&ie=utf-8&word=%s&pn=%d&gsm=0"%(key_word, pn*15)
         html_content = get_html(url)
         image_urls = get_image_urls(html_content)
         mass_download(image_urls, nthread)
@@ -53,3 +69,6 @@ for pn in range(0, num_image, 15):
         exit()
     except:
         pass
+    pn += 1
+    cnt += len(image_urls)
+print("Done.")
