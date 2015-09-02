@@ -57,13 +57,18 @@ os.chdir(dest_folder)
 
 pn = 0
 cnt = 0
+downloaded = set()
 while cnt < num_image:
     print("Page %d:"%(pn+1))
     image_urls = []
     try:
         url = "http://images.baidu.com/search/flip?tn=baiduimage&ie=utf-8&word=%s&pn=%d&gsm=0"%(key_word, pn*15)
         html_content = get_html(url)
-        image_urls = get_image_urls(html_content)
+        temp_urls = get_image_urls(html_content)
+        for i in temp_urls:
+            if i not in downloaded:
+                downloaded.add(i)
+                image_urls.append(i)
         mass_download(image_urls, nthread)
     except KeyboardInterrupt:
         exit()
