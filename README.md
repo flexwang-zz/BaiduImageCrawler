@@ -18,4 +18,4 @@ $ python crawler.py 狗 E:\dog 40 8
 ```
 Look at what we got here:
 
- <img src="https://github.com/flexwang/BaiduImageCrawler/raw/master/result.jpg" alt="GitHub" title="snapshot" width="700" height="201" />  
+ <img src="https://github.com/flexwang/BaiduImageCrawler/raw/master/result.jpg" alt="GitHub" title="snapshot" width="700" height="203" />  
