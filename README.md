@@ -4,7 +4,6 @@ This is a multithreaded tool for downloading search results of [Baidu image sear
 
 ### Dependencies
   - Python 3.x
-  - [workerpool](https://github.com/shazow/workerpool)
 
 ### Usage
 ```sh

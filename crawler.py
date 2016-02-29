@@ -2,10 +2,11 @@ import urllib.request
 import re
 import os
 import sys
-import workerpool
+from multiprocessing.dummy import Pool
 
-def download(url, file_name):
-    for i in range(5):
+def download(download_info):
+    (url, file_name) = download_info
+    for i in range(6):
         try:
             with urllib.request.urlopen(url, timeout=20) as response, open(file_name, 'wb') as out_file:
                 data = response.read() 
@@ -17,11 +18,9 @@ def download(url, file_name):
 
 def mass_download(urls, nthread):
     print('Downloading...')
-    pool = workerpool.WorkerPool(size=nthread)
-    saveto = [os.path.basename(url) for url in urls]
-    pool.map(download, urls, saveto)
-    pool.shutdown()
-    pool.wait()
+    download_infos = [(url, os.path.basename(url)) for url in urls]
+    with Pool(nthread) as pool:  
+        pool.map(download, download_infos)
 
 def get_html(url_path):
     print('Fetching html...')
